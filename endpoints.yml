@@ -10,8 +10,18 @@
 # Server which runs your custom actions.
 # https://rasa.com/docs/rasa/custom-actions
 
+# endpoints.yml
+# Core endpoint for conversations
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+  url: "http://0.0.0.0:${PORT:-5005}/webhook"
+
+# Tracker store (optional, but recommended for production)
+tracker_store:
+  type: InMemoryTrackerStore
+
+# Lock store (optional)
+lock_store:
+  type: InMemoryLockStore
 
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
