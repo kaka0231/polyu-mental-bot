@@ -1,0 +1,14 @@
+version: "3.1"
+
+nlu:
+# ... (keep existing intents)
+- intent: fallback  # New for unmatched
+  examples: |
+    - I don't know what to say
+    - random text
+    - kwadkdw  # For garbled
+- intent: cbt_module  # More direct
+  examples: |
+    - direct CBT help
+    - reply with restructuring
+    - use AI for thoughts

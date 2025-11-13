@@ -1,0 +1,58 @@
+{
+  "type": "MaxHistoryTrackerFeaturizer",
+  "state_featurizer": {
+    "action_texts": [],
+    "entity_tag_specs": [],
+    "feature_states": {
+      "intent": {
+        "affirm": 0,
+        "back": 1,
+        "cbt_module": 2,
+        "crisis_help": 3,
+        "fallback": 4,
+        "goodbye": 5,
+        "greet": 6,
+        "mood_check": 7,
+        "navigate_resources": 8,
+        "nlu_fallback": 9,
+        "out_of_scope": 10,
+        "psychoeducation": 11,
+        "restart": 12,
+        "session_start": 13
+      },
+      "action_name": {
+        "action_listen": 0,
+        "action_restart": 1,
+        "action_session_start": 2,
+        "action_default_fallback": 3,
+        "action_deactivate_loop": 4,
+        "action_revert_fallback_events": 5,
+        "action_default_ask_affirmation": 6,
+        "action_default_ask_rephrase": 7,
+        "action_two_stage_fallback": 8,
+        "action_unlikely_intent": 9,
+        "action_back": 10,
+        "...": 11,
+        "action_extract_slots": 12,
+        "action_escalate_crisis": 13,
+        "action_generate_deepseek_response": 14,
+        "utter_crisis_escalate": 15,
+        "utter_deepseek_fallback": 16,
+        "utter_goodbye": 17,
+        "utter_greet": 18
+      },
+      "entities": {
+        "issue": 0,
+        "mood": 1
+      },
+      "slots": {
+        "current_mood_0": 0,
+        "needs_escalation_0": 1,
+        "needs_escalation_1": 2
+      },
+      "active_loop": {}
+    }
+  },
+  "remove_duplicates": true,
+  "max_history": 5
+}

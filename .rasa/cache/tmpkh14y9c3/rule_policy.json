@@ -1,0 +1,24 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"crisis_help\"}}]": "action_escalate_crisis",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"crisis_help\"}}, {\"prev_action\": {\"action_name\": \"action_escalate_crisis\"}, \"user\": {\"intent\": \"crisis_help\"}}]": "utter_crisis_escalate",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"crisis_help\"}}, {\"prev_action\": {\"action_name\": \"action_escalate_crisis\"}, \"user\": {\"intent\": \"crisis_help\"}}, {\"prev_action\": {\"action_name\": \"utter_crisis_escalate\"}, \"user\": {\"intent\": \"crisis_help\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"needs_escalation\": [1.0, 1.0]}, \"user\": {\"intent\": \"affirm\"}}]": "utter_crisis_escalate",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"needs_escalation\": [1.0, 1.0]}, \"user\": {\"intent\": \"affirm\"}}, {\"prev_action\": {\"action_name\": \"utter_crisis_escalate\"}, \"slots\": {\"needs_escalation\": [1.0, 1.0]}, \"user\": {\"intent\": \"affirm\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"needs_escalation\": [1.0, 1.0]}, \"user\": {\"intent\": \"affirm\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"crisis_help\"}}]",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"crisis_help\"}}, {\"prev_action\": {\"action_name\": \"action_escalate_crisis\"}, \"user\": {\"intent\": \"crisis_help\"}}, {\"prev_action\": {\"action_name\": \"utter_crisis_escalate\"}, \"user\": {\"intent\": \"crisis_help\"}}]",
+      "predicting default action with intent session_start",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"crisis_help\"}}, {\"prev_action\": {\"action_name\": \"action_escalate_crisis\"}, \"user\": {\"intent\": \"crisis_help\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"needs_escalation\": [1.0, 1.0]}, \"user\": {\"intent\": \"affirm\"}}, {\"prev_action\": {\"action_name\": \"utter_crisis_escalate\"}, \"slots\": {\"needs_escalation\": [1.0, 1.0]}, \"user\": {\"intent\": \"affirm\"}}]",
+      "predicting default action with intent restart"
+    ]
+  }
+}

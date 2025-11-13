@@ -1,0 +1,13 @@
+version: "3.1"
+
+rules:
+- rule: Always escalate crisis
+  steps:
+  - intent: crisis_help
+  - action: action_escalate_crisis
+  - action: utter_crisis_escalate
+
+- rule: Goodbye always ends
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye

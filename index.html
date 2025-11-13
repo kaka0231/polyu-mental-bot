@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyU Mental Health Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .chat-container { width: 100%; max-width: 600px; height: 80vh; display: flex; flex-direction: column; background: white; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .messages { flex: 1; overflow-y: auto; padding: 20px; }
+        .message { margin-bottom: 10px; padding: 10px; border-radius: 10px; max-width: 80%; }
+        .user { background: #2c5aa0; color: white; margin-left: auto; text-align: right; }
+        .bot { background: #e9ecef; color: #333; margin-right: auto; }
+        .input-area { display: flex; padding: 20px; border-top: 1px solid #ddd; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; margin-right: 10px; }
+        button { padding: 10px 20px; background: #2c5aa0; color: white; border: none; border-radius: 20px; cursor: pointer; }
+        h1 { text-align: center; color: #2c5aa0; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>PolyU Mental Health Chatbot</h1>
+        <div id="messages" class="messages"></div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Check for first visit and send welcome
+        if (!localStorage.getItem('firstVisit')) {
+            localStorage.setItem('firstVisit', 'true');
+            sendWelcomeMessage();
+        }
+
+        async function sendWelcomeMessage() {
+            const welcomeMsg = "Welcome! How can I help with your mental health today? (e.g., CBT tips or mood check)";
+            addMessage('bot', welcomeMsg);  // Show welcome in UI
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Add user message to UI
+            addMessage('user', message);
+            input.value = '';
+
+            // Call Rasa API
+            try {
+                const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                const data = await response.json();
+                const botReply = data[0]?.text || 'Sorry, no response.';
+
+                // Add bot reply to UI
+                addMessage('bot', botReply);
+            } catch (error) {
+                addMessage('bot', 'Error connecting to bot. Check servers.');
+                console.error('API Error:', error);
+            }
+        }
+
+        function addMessage(sender, text) {
+            const messages = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            div.innerHTML = `<p>${text}</p>`;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+</body>
+</html>

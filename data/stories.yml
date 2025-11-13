@@ -1,0 +1,40 @@
+version: "3.1"
+
+stories:
+- story: greet to deepseek
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_generate_deepseek_response  # DeepSeek follows up
+
+- story: mood check to deepseek
+  steps:
+  - intent: mood_check
+  - slot_was_set:
+    - current_mood: anxious  # Example
+  - action: action_generate_deepseek_response  # DeepSeek uses mood
+
+- story: cbt to deepseek
+  steps:
+  - intent: cbt_module
+  - action: action_generate_deepseek_response
+
+- story: psycho to deepseek
+  steps:
+  - intent: psychoeducation
+  - action: action_generate_deepseek_response
+
+- story: resources to deepseek
+  steps:
+  - intent: navigate_resources
+  - action: action_generate_deepseek_response  # Tailored resources
+
+- story: affirm to deepseek
+  steps:
+  - intent: affirm
+  - action: action_generate_deepseek_response
+
+- story: fallback to deepseek
+  steps:
+  - intent: fallback
+  - action: action_generate_deepseek_response

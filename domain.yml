@@ -1,0 +1,50 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - mood_check
+  - crisis_help
+  - cbt_module
+  - psychoeducation
+  - navigate_resources
+  - affirm
+  - fallback  # New: For unmatched inputs
+
+entities:
+  - mood
+  - issue
+
+slots:
+  current_mood:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: mood
+  user_history:
+    type: list
+    influence_conversation: false
+    initial_value: []
+    mappings:
+      - type: custom
+  needs_escalation:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: from_text
+
+responses:
+  utter_greet:  # Keep minimal
+    - text: "Hi! I'm here to support your mental health journey. How are you feeling today? (English/中文?)"
+  utter_goodbye:
+    - text: "Take care—reach out anytime. You're not alone."
+  utter_crisis_escalate:
+    - text: "This sounds serious. Let's connect you to PolyU Counseling at 2766-6771. You're brave for sharing."
+  utter_deepseek_fallback:  # Only if API fails
+    - text: "I'm listening—tell me more about what's on your mind."
+
+actions:
+  - action_escalate_crisis
+  - action_generate_deepseek_response  # Now the main replier

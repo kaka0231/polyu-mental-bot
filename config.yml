@@ -1,0 +1,33 @@
+# The config recipe.
+# https://rasa.com/docs/rasa/tuning-your-model
+
+language: en  # Start with en; DIET handles zh via training data
+
+pipeline:
+  # Tokenizers/Featurizers
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer    # Default bag-of-words
+- name: CountVectorsFeaturizer
+  analyzer: char_wb    # Char n-grams for multilingual
+  min_ngram: 1
+  max_ngram: 4
+  # NLU Core: DIET for intents/entities (multilingual-capable)
+- name: DIETClassifier
+  epochs: 100
+  entity_recognition: true    # For mood/issue entities
+- name: EntitySynonymMapper
+- name: ResponseSelector
+  epochs: 100    # For FAQ-like psychoeducation
+
+policies:
+  # Rule/Memo for simple flows
+- name: MemoizationPolicy
+- name: RulePolicy
+  # ML for complex dialogs (e.g., personalization)
+- name: "TEDPolicy"
+  max_history: 5    # Context window
+  epochs: 100
+  model_confidence: softmax
+assistant_id: 20251110-154502-ambitious-chinon
