@@ -4,11 +4,16 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import requests
 import logging
+from dotenv import load_dotenv
+import os
 
 logger = logging.getLogger(__name__)
 
-# OpenRouter API Key (from openrouter.ai dashboard)
-OPENROUTER_API_KEY = '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'  # Replace with your actual key
+load_dotenv()
+
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')  
+if not OPENROUTER_API_KEY:
+    raise ValueError("Set OPENROUTER_API_KEY in env!")
 
 class ActionEscalateCrisis(Action):
     def name(self) -> Text:
@@ -22,9 +27,9 @@ class ActionEscalateCrisis(Action):
         dispatcher.utter_message(text="Connecting you to immediate help—hold on.")
         return [SlotSet("needs_escalation", True), SlotSet("user_history", (tracker.get_slot("user_history") or []) + ["crisis_flag"])]
 
-class ActionGenerateOpenRouterResponse(Action):  # Renamed for clarity
+class ActionGenerateOpenRouterResponse(Action):  
     def name(self) -> Text:
-        return "action_generate_deepseek_response"  # Keep same name for Rasa compatibility
+        return "action_generate_deepseek_response" 
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
