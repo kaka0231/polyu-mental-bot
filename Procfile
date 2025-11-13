@@ -1,0 +1,1 @@
+web: rasa run --enable-api --cors "*" --endpoints endpoints.yml --port $PORT
