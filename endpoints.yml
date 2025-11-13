@@ -13,7 +13,7 @@
 # endpoints.yml
 # Core endpoint for conversations
 action_endpoint:
-  url: "http://0.0.0.0:${PORT:-5005}/webhook"
+  url: "http://0.0.0.0:5055/webhook"  # Action server 使用固定端口 5055
 
 # Tracker store (optional, but recommended for production)
 tracker_store:
